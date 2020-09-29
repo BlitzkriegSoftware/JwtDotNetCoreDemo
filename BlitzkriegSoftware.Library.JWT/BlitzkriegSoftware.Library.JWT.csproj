@@ -8,15 +8,17 @@
     <Description>A little helper library to make and validate JWT in C#</Description>
     <Copyright>(c) 2020 Blitzkrieg Software/Stuart Williams</Copyright>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <PackageIcon>favicon.ico</PackageIcon>
+    <PackageIcon>blizkrieglogo300_50.png</PackageIcon>
     <RepositoryUrl>https://github.com/BlitzkriegSoftware/JwtDotNetCoreDemo</RepositoryUrl>
     <RepositoryType>GITHUB</RepositoryType>
     <PackageTags>C#, JWT</PackageTags>
     <PackageReleaseNotes>This is a working version with lots of tests</PackageReleaseNotes>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>C:\code\blitz\JwtDotNetCoreDemo\BlitzkriegSoftware.Library.JWT\BlitzkriegSoftware.Library.JWT.xml</DocumentationFile>
+    <DocumentationFile>BlitzkriegSoftware.Library.JWT.xml</DocumentationFile>
+    <DefineConstants>DEBUG</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>
@@ -44,7 +46,7 @@
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
-    <None Include="favicon.ico">
+    <None Include="blizkrieglogo300_50.png">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
