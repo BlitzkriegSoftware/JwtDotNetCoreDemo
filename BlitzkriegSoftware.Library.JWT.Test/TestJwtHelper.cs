@@ -1,6 +1,7 @@
 using BlitzkriegSoftware.Library.JWT.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Security.Claims;
 
@@ -64,6 +65,58 @@ namespace BlitzkriegSoftware.Library.JWT.Test
         }
 
         #endregion
+
+        #region "Demo"
+
+        [TestMethod]
+        [TestCategory("Unit")]
+        public void TestDemoPrimary()
+        {
+            var identity = new JwtIdentity("user2");
+
+            var secret = JwtHelper.MakeRandomSecret(32);
+            var helper = new JwtHelper(secret);
+
+            var rC = new Models.JwtCreateRequest()
+            {
+                Identity = identity,
+                Audiance = TestAudiance,
+                Issuer = TestIssuer,
+                Expires = new System.TimeSpan(0, 15, 0)
+            };
+
+            rC.Claims.AddRange(new List<Claim>()
+            {
+                new Claim("email","user2@nomail.org"),
+                new Claim("fullname", "Joe Gunchy"),
+                new Claim("org","engineering")
+            });
+
+            var jwt = helper.Create(rC);
+
+            TestJwtHelper.testContext.WriteLine($"JWT: {jwt}");
+
+            var result = helper.Validate(new Models.JwtValidationRequest()
+            {
+                Audiance = TestAudiance,
+                Issuer = TestIssuer,
+                Token = jwt
+            });
+
+            Assert.IsTrue(result.IsValid);
+
+            TestJwtHelper.testContext.WriteLine($"Name: {result.Identity.Name}");
+            TestJwtHelper.testContext.WriteLine($"Issuer: {result.Issuer}");
+
+            foreach (var c in result.Claims)
+            {
+                TestJwtHelper.testContext.WriteLine($"\tClaim: {c.Type}={c.Value}");
+            }
+        }
+
+        #endregion
+
+        #region "Other Tests"
 
         [TestMethod]
         [TestCategory("Unit")]
@@ -137,46 +190,6 @@ namespace BlitzkriegSoftware.Library.JWT.Test
             TestJwtHelper.testContext.WriteLine($"{vl}");
 
             var result = helper.Validate(vl);
-
-            Assert.IsTrue(result.IsValid);
-
-            TestJwtHelper.testContext.WriteLine($"Name: {result.Identity.Name}");
-            TestJwtHelper.testContext.WriteLine($"Issuer: {result.Issuer}");
-
-            foreach (var c in result.Claims)
-            {
-                TestJwtHelper.testContext.WriteLine($"\tClaim: {c.Type}={c.Value}");
-            }
-        }
-
-
-        [TestMethod]
-        [TestCategory("Unit")]
-        public void TestSimple2()
-        {
-            var identity = new JwtIdentity("user2");
-
-            var secret = JwtHelper.MakeRandomSecret(32);
-            var helper = new JwtHelper(secret);
-
-            var rC = new Models.JwtCreateRequest()
-            {
-                Identity = identity,
-                Audiance = TestAudiance,
-                Issuer = TestIssuer,
-                Expires = new System.TimeSpan(0, 15, 0)
-            };
-
-            var jwt = helper.Create(rC);
-
-            TestJwtHelper.testContext.WriteLine($"JWT: {jwt}");
-
-            var result = helper.Validate(new Models.JwtValidationRequest()
-            {
-                Audiance = TestAudiance,
-                Issuer = TestIssuer,
-                Token = jwt
-            });
 
             Assert.IsTrue(result.IsValid);
 
@@ -335,5 +348,8 @@ namespace BlitzkriegSoftware.Library.JWT.Test
 
             _ = helper.Validate(vr);
         }
+
+        #endregion
+
     }
 }
