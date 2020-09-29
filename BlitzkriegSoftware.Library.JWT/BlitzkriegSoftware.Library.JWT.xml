@@ -1,0 +1,190 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>BlitzkriegSoftware.Library.JWT</name>
+    </assembly>
+    <members>
+        <member name="T:BlitzkriegSoftware.Library.JWT.JwtHelper">
+            <summary>
+            JWT Helper
+            </summary>
+        </member>
+        <member name="M:BlitzkriegSoftware.Library.JWT.JwtHelper.#ctor(System.Byte[])">
+            <summary>
+            CTOR
+            </summary>
+            <param name="secretBytes">A byte array to use for a secret (do not lose!)
+            <para>The helper method <c>MakeRandomSecret</c> can be used to create a secret</para>
+            </param>
+        </member>
+        <member name="M:BlitzkriegSoftware.Library.JWT.JwtHelper.Create(BlitzkriegSoftware.Library.JWT.Models.JwtCreateRequest)">
+            <summary>
+            Create a JWT token of the form <c>Header.Payload.Signature</c>
+            </summary>
+            <param name="request"></param>
+            <returns>JWT</returns>
+        </member>
+        <member name="M:BlitzkriegSoftware.Library.JWT.JwtHelper.Validate(BlitzkriegSoftware.Library.JWT.Models.JwtValidationRequest)">
+            <summary>
+            Validate and Get Infomation from a Token
+            </summary>
+            <param name="request">JwtValidationRequest</param>
+            <returns>JwtInformation</returns>
+        </member>
+        <member name="M:BlitzkriegSoftware.Library.JWT.JwtHelper.MakeRandomSecret(System.Int32)">
+            <summary>
+            Make a random base64 encoded N byte secret
+            <paramref name="buffersize">Must be a power of 2 that is supported (default 256)</paramref>
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:BlitzkriegSoftware.Library.JWT.JwtHelper.ToBase64(System.String)">
+            <summary>
+            Convert to Base64
+            </summary>
+            <param name="plainText">Pain Text (like a JWT)</param>
+            <returns>Base64 String</returns>
+        </member>
+        <member name="M:BlitzkriegSoftware.Library.JWT.JwtHelper.FromBase64(System.String)">
+            <summary>
+            Convert From Base64
+            </summary>
+            <param name="base64Text">Base64 Text</param>
+            <returns>Original Text</returns>
+        </member>
+        <member name="T:BlitzkriegSoftware.Library.JWT.Models.JwtCreateRequest">
+            <summary>
+            Request: Create JWT
+            </summary>
+        </member>
+        <member name="P:BlitzkriegSoftware.Library.JWT.Models.JwtCreateRequest.Identity">
+            <summary>
+            Identity (required)
+            </summary>
+        </member>
+        <member name="P:BlitzkriegSoftware.Library.JWT.Models.JwtCreateRequest.Audiance">
+            <summary>
+            Audiance (required)
+            </summary>
+        </member>
+        <member name="P:BlitzkriegSoftware.Library.JWT.Models.JwtCreateRequest.Issuer">
+            <summary>
+            Issuer (self)
+            </summary>
+        </member>
+        <member name="P:BlitzkriegSoftware.Library.JWT.Models.JwtCreateRequest.Expires">
+            <summary>
+            Expires as a timespan (required)
+            </summary>
+        </member>
+        <member name="P:BlitzkriegSoftware.Library.JWT.Models.JwtCreateRequest.Claims">
+            <summary>
+            List of claims to include (optional)
+            </summary>
+        </member>
+        <member name="P:BlitzkriegSoftware.Library.JWT.Models.JwtCreateRequest.IsValid">
+            <summary>
+            Is the request valid
+            </summary>
+        </member>
+        <member name="T:BlitzkriegSoftware.Library.JWT.Models.JwtIdentity">
+            <summary>
+            JWT Indentity
+            </summary>
+        </member>
+        <member name="M:BlitzkriegSoftware.Library.JWT.Models.JwtIdentity.#ctor(System.String)">
+            <summary>
+            CTOR
+            </summary>
+            <param name="name">Username</param>
+        </member>
+        <member name="P:BlitzkriegSoftware.Library.JWT.Models.JwtIdentity.AuthenticationType">
+            <summary>
+            Hardcoded to <c>JWT</c>
+            </summary>
+        </member>
+        <member name="P:BlitzkriegSoftware.Library.JWT.Models.JwtIdentity.IsAuthenticated">
+            <summary>
+            Hardcoded to <c>true</c>
+            </summary>
+        </member>
+        <member name="P:BlitzkriegSoftware.Library.JWT.Models.JwtIdentity.Name">
+            <summary>
+            Username
+            </summary>
+        </member>
+        <member name="M:BlitzkriegSoftware.Library.JWT.Models.JwtIdentity.ToString">
+            <summary>
+            Debug string
+            </summary>
+            <returns>Show fields</returns>
+        </member>
+        <member name="T:BlitzkriegSoftware.Library.JWT.Models.JwtInformation">
+            <summary>
+            JWT Information
+            </summary>
+        </member>
+        <member name="P:BlitzkriegSoftware.Library.JWT.Models.JwtInformation.Identity">
+            <summary>
+            IIdentity
+            </summary>
+        </member>
+        <member name="P:BlitzkriegSoftware.Library.JWT.Models.JwtInformation.Audiance">
+            <summary>
+            Audiance (required)
+            </summary>
+        </member>
+        <member name="P:BlitzkriegSoftware.Library.JWT.Models.JwtInformation.Issuer">
+            <summary>
+            Issuer (self)
+            </summary>
+        </member>
+        <member name="P:BlitzkriegSoftware.Library.JWT.Models.JwtInformation.IsValid">
+            <summary>
+            Is a valid token
+            </summary>
+        </member>
+        <member name="P:BlitzkriegSoftware.Library.JWT.Models.JwtInformation.Claims">
+            <summary>
+            List of claims to include (optional)
+            </summary>
+        </member>
+        <member name="M:BlitzkriegSoftware.Library.JWT.Models.JwtInformation.ToString">
+            <summary>
+            Debug string
+            </summary>
+            <returns>Show fields</returns>
+        </member>
+        <member name="T:BlitzkriegSoftware.Library.JWT.Models.JwtValidationRequest">
+            <summary>
+            Request: JWT Validation
+            </summary>
+        </member>
+        <member name="P:BlitzkriegSoftware.Library.JWT.Models.JwtValidationRequest.Token">
+            <summary>
+            Token (not base64 encoded)
+            </summary>
+        </member>
+        <member name="P:BlitzkriegSoftware.Library.JWT.Models.JwtValidationRequest.Audiance">
+            <summary>
+            Audiance (required)
+            </summary>
+        </member>
+        <member name="P:BlitzkriegSoftware.Library.JWT.Models.JwtValidationRequest.Issuer">
+            <summary>
+            Issuer (self)
+            </summary>
+        </member>
+        <member name="P:BlitzkriegSoftware.Library.JWT.Models.JwtValidationRequest.IsValid">
+            <summary>
+            Is the request valid
+            </summary>
+        </member>
+        <member name="M:BlitzkriegSoftware.Library.JWT.Models.JwtValidationRequest.ToString">
+            <summary>
+            Debug string
+            </summary>
+            <returns>Show fields</returns>
+        </member>
+    </members>
+</doc>
