@@ -2,6 +2,8 @@
 
 A small demo of creating and consuming JWT tokens in C#
 
+Some helper methods added.
+
 ## Example
 
 ```csharp

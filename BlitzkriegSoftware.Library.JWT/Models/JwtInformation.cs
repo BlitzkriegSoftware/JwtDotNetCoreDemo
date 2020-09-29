@@ -56,12 +56,17 @@ namespace BlitzkriegSoftware.Library.JWT.Models
         }
 
         /// <summary>
+        /// Expires At (UTC)
+        /// </summary>
+        public DateTime ExpiresAt { get; set; }
+
+        /// <summary>
         /// Debug string
         /// </summary>
         /// <returns>Show fields</returns>
         public override string ToString()
         {
-            return $"Id: {this.Identity}; Aud: {this.Audiance}; Iss: {this.Issuer}; Claims: {string.Join(",", this.Claims)}";
+            return $"Id: {this.Identity}; Aud: {this.Audiance}; Iss: {this.Issuer}; Expires: {this.ExpiresAt}; Claims: {string.Join(",", this.Claims)}";
         }
 
     }

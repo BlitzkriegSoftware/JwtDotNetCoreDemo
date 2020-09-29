@@ -28,13 +28,13 @@ namespace BlitzkriegSoftware.Library.JWT.Test
         public const string TestAudiance = "test";
         public const string TestIssuer = "self";
 
-        public JwtIdentity MakeIdentity(string username)
+        public static JwtIdentity MakeIdentity(string username)
         {
             var identity = new JwtIdentity(username);
             return identity;
         }
 
-        public JwtHelper MakeHelper()
+        public static JwtHelper MakeHelper()
         {
             var secret = JwtHelper.MakeRandomSecret();
             var helper = new JwtHelper(secret);
@@ -42,7 +42,7 @@ namespace BlitzkriegSoftware.Library.JWT.Test
         }
 
 
-        public string MakeTestJwt(out JwtHelper helper)
+        public static string MakeTestJwt(out JwtHelper helper)
         {
             helper = MakeHelper();
 
@@ -70,11 +70,13 @@ namespace BlitzkriegSoftware.Library.JWT.Test
 
         [TestMethod]
         [TestCategory("Unit")]
-        public void TestDemoPrimary()
+        public void Demo()
         {
             var identity = new JwtIdentity("user2");
 
-            var secret = JwtHelper.MakeRandomSecret(32);
+            TestJwtHelper.testContext.WriteLine($"{identity}");
+
+            var secret = JwtHelper.MakeRandomSecret(256);
             var helper = new JwtHelper(secret);
 
             var rC = new Models.JwtCreateRequest()
@@ -94,7 +96,7 @@ namespace BlitzkriegSoftware.Library.JWT.Test
 
             var jwt = helper.Create(rC);
 
-            TestJwtHelper.testContext.WriteLine($"JWT: {jwt}");
+            TestJwtHelper.testContext.WriteLine($"JWT [{jwt.Length}]: {jwt}");
 
             var result = helper.Validate(new Models.JwtValidationRequest()
             {
@@ -105,12 +107,11 @@ namespace BlitzkriegSoftware.Library.JWT.Test
 
             Assert.IsTrue(result.IsValid);
 
-            TestJwtHelper.testContext.WriteLine($"Name: {result.Identity.Name}");
-            TestJwtHelper.testContext.WriteLine($"Issuer: {result.Issuer}");
+            TestJwtHelper.testContext.WriteLine($"Name: {result.Identity.Name}; Iss: {result.Issuer}; Aud: {result.Audiance}, Exp: {result.ExpiresAt.ToUniversalTime()}");
 
             foreach (var c in result.Claims)
             {
-                TestJwtHelper.testContext.WriteLine($"\tClaim: {c.Type}={c.Value}");
+                TestJwtHelper.testContext.WriteLine($"\tClaim: {JwtHelper.AfterLastSlash(c.Type)}={c.Value}");
             }
         }
 
@@ -132,7 +133,7 @@ namespace BlitzkriegSoftware.Library.JWT.Test
         [TestMethod]
         [TestCategory("Unit")]
         [ExpectedException(typeof(InvalidOperationException))]
-        public void BadSecret1Create1()
+        public void TestBadSecret1Create1()
         {
             var helper = new JwtHelper(null);
 
@@ -146,11 +147,10 @@ namespace BlitzkriegSoftware.Library.JWT.Test
             helper.Create(rC);
         }
 
-
         [TestMethod]
         [TestCategory("Unit")]
         [ExpectedException(typeof(ArgumentNullException))]
-        public void BadValidate1()
+        public void TestBadValidate1()
         {
             var helper = MakeHelper();
             helper.Validate(null);
@@ -193,13 +193,41 @@ namespace BlitzkriegSoftware.Library.JWT.Test
 
             Assert.IsTrue(result.IsValid);
 
-            TestJwtHelper.testContext.WriteLine($"Name: {result.Identity.Name}");
-            TestJwtHelper.testContext.WriteLine($"Issuer: {result.Issuer}");
+            TestJwtHelper.testContext.WriteLine($"{result}");
 
             foreach (var c in result.Claims)
             {
                 TestJwtHelper.testContext.WriteLine($"\tClaim: {c.Type}={c.Value}");
             }
+
+            var cl = JwtHelper.FindClaim("XXXX", result.Claims);
+            Assert.IsNull(cl);
+
+            cl = JwtHelper.FindClaim("aud", result.Claims);
+            Assert.IsNotNull(cl);
+        }
+
+        [TestMethod]
+        [TestCategory("Unit")]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void TestFindClaimBad1()
+        {
+            var claims = new List<Claim>()
+            {
+                new Claim("email","user2@nomail.org"),
+                new Claim("fullname", "Joe Gunchy"),
+                new Claim("org","engineering")
+            };
+
+            _ = JwtHelper.FindClaim(null, claims);
+        }
+
+        [TestMethod]
+        [TestCategory("Unit")]
+        public void TestFindClaimBad2()
+        {
+            var result = JwtHelper.FindClaim("aud", null);
+            Assert.IsNull(result);
         }
 
         [TestMethod]
@@ -207,7 +235,7 @@ namespace BlitzkriegSoftware.Library.JWT.Test
         [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void TestBadKey1()
         {
-            var secret = JwtHelper.MakeRandomSecret(11);
+            _ = JwtHelper.MakeRandomSecret(11);
         }
 
         [TestMethod]
@@ -215,7 +243,7 @@ namespace BlitzkriegSoftware.Library.JWT.Test
         [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void TestBadKey2()
         {
-            var secret = JwtHelper.MakeRandomSecret(-5);
+            _ = JwtHelper.MakeRandomSecret(-5);
         }
 
         [TestMethod]
@@ -244,7 +272,7 @@ namespace BlitzkriegSoftware.Library.JWT.Test
                 Expires = new System.TimeSpan(0, 0, 0)
             };
 
-            var jwt = helper.Create(rC);
+            _ = helper.Create(rC);
         }
 
         [TestMethod]
@@ -264,7 +292,7 @@ namespace BlitzkriegSoftware.Library.JWT.Test
                 Expires = new System.TimeSpan(0, 15, 0)
             };
 
-            var jwt = helper.Create(rC);
+            _ = helper.Create(rC);
         }
 
 
@@ -283,17 +311,15 @@ namespace BlitzkriegSoftware.Library.JWT.Test
                 Expires = new System.TimeSpan(0, 15, 0)
             };
 
-            var jwt = helper.Create(rC);
+            _ = helper.Create(rC);
         }
 
 
         [TestMethod]
         [TestCategory("Unit")]
         [ExpectedException(typeof(Microsoft.IdentityModel.Tokens.SecurityTokenInvalidSignatureException))]
-        public void TestBadValidate1()
+        public void TestBadValidate2()
         {
-            var identity = new JwtIdentity("user1");
-
             var secret = JwtHelper.MakeRandomSecret();
             var helper = new JwtHelper(secret);
 

@@ -52,6 +52,21 @@
             <param name="base64Text">Base64 Text</param>
             <returns>Original Text</returns>
         </member>
+        <member name="M:BlitzkriegSoftware.Library.JWT.JwtHelper.FindClaim(System.String,System.Collections.Generic.List{System.Security.Claims.Claim})">
+            <summary>
+            Find Claim in a Claims List
+            </summary>
+            <param name="key">key to look for (contains)</param>
+            <param name="claims">list of claims</param>
+            <returns>Claim or null</returns>
+        </member>
+        <member name="M:BlitzkriegSoftware.Library.JWT.JwtHelper.AfterLastSlash(System.String)">
+            <summary>
+            Get the contents of a string after the last SLASH (/)
+            </summary>
+            <param name="text">Text to process</param>
+            <returns>Munged text</returns>
+        </member>
         <member name="T:BlitzkriegSoftware.Library.JWT.Models.JwtCreateRequest">
             <summary>
             Request: Create JWT
@@ -147,6 +162,11 @@
         <member name="P:BlitzkriegSoftware.Library.JWT.Models.JwtInformation.Claims">
             <summary>
             List of claims to include (optional)
+            </summary>
+        </member>
+        <member name="P:BlitzkriegSoftware.Library.JWT.Models.JwtInformation.ExpiresAt">
+            <summary>
+            Expires At (UTC)
             </summary>
         </member>
         <member name="M:BlitzkriegSoftware.Library.JWT.Models.JwtInformation.ToString">

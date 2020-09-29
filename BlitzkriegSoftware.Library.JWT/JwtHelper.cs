@@ -10,6 +10,8 @@ using Microsoft.IdentityModel.Tokens;
 using BlitzkriegSoftware.Library.JWT.Models;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System.Diagnostics.CodeAnalysis;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace BlitzkriegSoftware.Library.JWT
 {
@@ -91,6 +93,8 @@ namespace BlitzkriegSoftware.Library.JWT
 
             var prin = handler.ValidateToken(request.Token, param, out SecurityToken validatedToken);
 
+            response.Audiance = request.Audiance;
+
             if (validatedToken == null)
             {
                 response.Identity = null;
@@ -99,6 +103,8 @@ namespace BlitzkriegSoftware.Library.JWT
             {
                 response.Claims.AddRange(prin.Claims);
                 response.Identity = prin.Identity;
+                response.Issuer = request.Issuer;
+                response.ExpiresAt = validatedToken.ValidTo;
             }
 
             return response;
@@ -146,6 +152,41 @@ namespace BlitzkriegSoftware.Library.JWT
             return System.Text.Encoding.UTF8.GetString(b);
         }
 
+        /// <summary>
+        /// Find Claim in a Claims List
+        /// </summary>
+        /// <param name="key">key to look for (contains)</param>
+        /// <param name="claims">list of claims</param>
+        /// <returns>Claim or null</returns>
+        public static Claim FindClaim(string key, List<Claim> claims)
+        {
+            Claim claim = null;
+            if (string.IsNullOrWhiteSpace(key)) throw new ArgumentNullException(nameof(key));
+            if((claims == null) || (claims.Count <= 0))
+            {
+                return claim;
+            }
+
+            claim = claims.Where(c => c.Type.Contains(key)).FirstOrDefault();
+
+            return claim;
+        }
+
+        /// <summary>
+        /// Get the contents of a string after the last SLASH (/)
+        /// </summary>
+        /// <param name="text">Text to process</param>
+        /// <returns>Munged text</returns>
+        public static string AfterLastSlash(string text)
+        {
+            if (string.IsNullOrWhiteSpace(text)) return string.Empty;
+            var i = text.LastIndexOf('/');
+            if (i > 0)
+            {
+                text = text.Substring(i + 1);
+            }
+            return text;
+        }
 
     }
 }
