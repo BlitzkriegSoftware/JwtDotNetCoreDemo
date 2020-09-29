@@ -52,14 +52,16 @@ namespace BlitzkriegSoftware.Library.JWT
             var signingKey = new SymmetricSecurityKey(this._secret);
             var signingCredentials = new SigningCredentials(signingKey, SecurityAlgorithms.HmacSha256);
 
+            var ts = DateTime.UtcNow;
+
             var securityTokenDescriptor = new SecurityTokenDescriptor()
             {
                 Subject = new ClaimsIdentity(request.Identity, request.Claims),
-                NotBefore = DateTime.Now,
+                NotBefore = ts,
                 SigningCredentials = signingCredentials,
                 Issuer = request.Issuer,
-                IssuedAt = DateTime.UtcNow,
-                Expires = DateTime.UtcNow + request.Expires,
+                IssuedAt = ts,
+                Expires = ts + request.Expires,
                 Audience = request.Audiance
             };
 
