@@ -317,7 +317,7 @@ namespace BlitzkriegSoftware.Library.JWT.Test
 
         [TestMethod]
         [TestCategory("Unit")]
-        [ExpectedException(typeof(Microsoft.IdentityModel.Tokens.SecurityTokenInvalidSignatureException))]
+        [ExpectedException(typeof(Microsoft.IdentityModel.Tokens.SecurityTokenSignatureKeyNotFoundException))]
         public void TestBadValidate2()
         {
             var secret = JwtHelper.MakeRandomSecret();
