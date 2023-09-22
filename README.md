@@ -32,25 +32,15 @@ var result = helper.Validate(new Models.JwtValidationRequest()
 	Issuer = TestIssuer,
 	Token = jwt
 });
-
-
-
 ```
 
+Licensed under the [MIT license](LICENSE).
 
-## About
+## About me ##
 
-Stuart Williams
+**Stuart Williams**
 
-* Cloud/DevOps Practice Lead
-
-* Magenic Technologies Inc.
-* Office of the CTO
-
-* [e-mail](stuartw@magenic.com)
-
-* [Blog](https://blitzkriegsoftware.azurewebsites.net/Blog)
-
-* [LinkedIn](http://lnkd.in/P35kVT)
-
-* [YouTube](https://www.youtube.com/user/spookdejur1962/videos)
+* I Cloud. I Code. 
+* <a href="mailto:stuart.t.williams@outlook.com" target="_blank">stuart.t.williams@outlook.com</a> (e-mail)
+* LinkedIn: <a href="http://lnkd.in/P35kVT" target="_blank">http://lnkd.in/P35kVT</a>
+* YouTube: <a href="https://www.youtube.com/user/spookdejur1962/videos" target="_blank">https://www.youtube.com/user/spookdejur1962/videos</a> 

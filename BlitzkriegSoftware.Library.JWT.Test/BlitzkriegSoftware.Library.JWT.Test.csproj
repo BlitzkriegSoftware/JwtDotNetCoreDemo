@@ -2,24 +2,33 @@
 
 	<PropertyGroup>
 		<TargetFramework>net6.0</TargetFramework>
-		<LangVersion>9.0</LangVersion>
-		<IsPackable>false</IsPackable>
-		<Version>6.2.2</Version>
-		<InformationalVersion>6.2.2</InformationalVersion>
+		<Nullable>disable</Nullable>
+		<AnalysisLevel>6.0-recommended</AnalysisLevel>
+		<WarningLevel>5</WarningLevel>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<Version>6.2.4</Version>
+		<InformationalVersion>6.2.4</InformationalVersion>
+	</PropertyGroup>
+
+	<PropertyGroup>
 		<Authors>Stuart Williams</Authors>
+		<Title>A little library to make JWT</Title>
 		<Company>Blitzkrieg Software</Company>
-		<Copyright>(c) 2020-2022 Blitzkrieg Software/Stuart Williams</Copyright>
+		<Description>A little helper library to make and validate JWT in C#</Description>
+		<Copyright>(c) 2020-2023 Blitzkrieg Software/Stuart Williams</Copyright>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.4.0" />
-		<PackageReference Include="MSTest.TestAdapter" Version="2.2.10" />
-		<PackageReference Include="MSTest.TestFramework" Version="2.2.10" />
-		<PackageReference Include="coverlet.collector" Version="3.2.0">
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.7.2" />
+		<PackageReference Include="MSTest.TestAdapter" Version="3.1.1" />
+		<PackageReference Include="MSTest.TestFramework" Version="3.1.1" />
+		<PackageReference Include="coverlet.collector" Version="6.0.0">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.25.0" />
+		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>

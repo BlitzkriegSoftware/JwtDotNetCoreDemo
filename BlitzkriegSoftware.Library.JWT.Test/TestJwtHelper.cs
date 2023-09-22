@@ -118,6 +118,17 @@ namespace BlitzkriegSoftware.Library.JWT.Test
         #endregion
 
         #region "Other Tests"
+        [TestMethod]
+        [TestCategory("Unit")]
+        public void TestAfterLastSlash() {
+            var expected = "nope";
+            var actual = JwtHelper.AfterLastSlash(expected);
+            Assert.AreEqual(expected, actual);
+            expected = "Loo";
+            var text = $"mooo/{expected}";
+            actual = JwtHelper.AfterLastSlash(expected);
+            Assert.AreEqual(expected, actual);
+        }
 
         [TestMethod]
         [TestCategory("Unit")]

@@ -2,12 +2,26 @@
 
 	<PropertyGroup>
 		<TargetFramework>netstandard2.1</TargetFramework>
-		<Version>6.2.2</Version>
-		<InformationalVersion>6.2.2</InformationalVersion>
+		<LangVersion>9.0</LangVersion>
+		<Nullable>disable</Nullable>
+		<AnalysisLevel>6.0-recommended</AnalysisLevel>
+		<WarningLevel>5</WarningLevel>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<Version>6.2.4</Version>
+		<InformationalVersion>6.2.4</InformationalVersion>
+	</PropertyGroup>
+
+	<PropertyGroup>
 		<Authors>Stuart Williams</Authors>
+		<Title>A little library to make JWT</Title>
 		<Company>Blitzkrieg Software</Company>
 		<Description>A little helper library to make and validate JWT in C#</Description>
-		<Copyright>(c) 2020-2022 Blitzkrieg Software/Stuart Williams</Copyright>
+		<Copyright>(c) 2020-2023 Blitzkrieg Software/Stuart Williams</Copyright>
+	</PropertyGroup>
+
+	<PropertyGroup>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
 		<PackageIcon>blizkrieglogo300_50.png</PackageIcon>
 		<RepositoryUrl>https://github.com/BlitzkriegSoftware/JwtDotNetCoreDemo</RepositoryUrl>
@@ -15,7 +29,6 @@
 		<PackageTags>C#, JWT</PackageTags>
 		<PackageReleaseNotes>This is a working version with lots of tests</PackageReleaseNotes>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-		<Title>A little library to make JWT</Title>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageProjectUrl>https://github.com/BlitzkriegSoftware/JwtDotNetCoreDemo</PackageProjectUrl>
 		<IncludeSymbols>True</IncludeSymbols>
@@ -28,20 +41,23 @@
 		<DefineConstants>DEBUG</DefineConstants>
 	</PropertyGroup>
 
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+	</PropertyGroup>
+
 	<ItemGroup>
 		<Content Include="BlitzkriegSoftware.ico" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.25.0" />
+		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.3">
+		<PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.4">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.4.0" />
+		<PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.7.0" />
 	</ItemGroup>
 
 	<ItemGroup>

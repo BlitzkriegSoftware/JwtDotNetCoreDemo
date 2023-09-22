@@ -1,4 +1,8 @@
-﻿namespace BlitzkriegSoftware.Library.JWT.Models
+﻿// See: https://gist.github.com/bschapendonk/80f2339e0ac6837670d7c6843455d4e2
+// See: https://tools.ietf.org/html/rfc7519
+// See: https://jwt.io/
+
+namespace BlitzkriegSoftware.Library.JWT.Models
 {
     /// <summary>
     /// Request: JWT Validation

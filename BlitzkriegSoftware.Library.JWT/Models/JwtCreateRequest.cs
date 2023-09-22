@@ -39,10 +39,7 @@ namespace BlitzkriegSoftware.Library.JWT.Models
         public List<Claim> Claims { 
             get
             {
-                if(_claims == null)
-                {
-                    _claims = new List<Claim>();
-                }
+                _claims ??= new List<Claim>();
                 return _claims;
             }
         }

@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
 using System.Security.Principal;
-using System.Text;
 
 namespace BlitzkriegSoftware.Library.JWT.Models
 {

@@ -139,6 +139,11 @@
             JWT Information
             </summary>
         </member>
+        <member name="F:BlitzkriegSoftware.Library.JWT.Models.JwtInformation.DefaultJwtExpirationMinutes">
+            <summary>
+            Default: Expiration Minutes
+            </summary>
+        </member>
         <member name="P:BlitzkriegSoftware.Library.JWT.Models.JwtInformation.Identity">
             <summary>
             IIdentity
@@ -166,7 +171,7 @@
         </member>
         <member name="P:BlitzkriegSoftware.Library.JWT.Models.JwtInformation.ExpiresAt">
             <summary>
-            Expires At (UTC)
+            Expires At (UTC), Default <c>DefaultJwtExpirationMinutes</c>
             </summary>
         </member>
         <member name="M:BlitzkriegSoftware.Library.JWT.Models.JwtInformation.ToString">

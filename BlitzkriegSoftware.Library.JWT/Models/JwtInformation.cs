@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Security.Principal;
-using System.Text;
 
 namespace BlitzkriegSoftware.Library.JWT.Models
 {
@@ -12,6 +11,12 @@ namespace BlitzkriegSoftware.Library.JWT.Models
     /// </summary>
     public class JwtInformation
     {
+
+        /// <summary>
+        /// Default: Expiration Minutes
+        /// </summary>
+        public const int DefaultJwtExpirationMinutes = 15;
+
         /// <summary>
         /// IIdentity
         /// </summary>
@@ -47,18 +52,15 @@ namespace BlitzkriegSoftware.Library.JWT.Models
         {
             get
             {
-                if (_claims == null)
-                {
-                    _claims = new List<Claim>();
-                }
+                _claims ??= new List<Claim>();
                 return _claims;
             }
         }
 
         /// <summary>
-        /// Expires At (UTC)
+        /// Expires At (UTC), Default <c>DefaultJwtExpirationMinutes</c>
         /// </summary>
-        public DateTime ExpiresAt { get; set; }
+        public DateTime ExpiresAt { get; set; } = DateTime.UtcNow.AddMinutes(DefaultJwtExpirationMinutes);
 
         /// <summary>
         /// Debug string

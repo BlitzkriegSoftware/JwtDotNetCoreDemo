@@ -8,7 +8,6 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using Microsoft.IdentityModel.Tokens;
 using BlitzkriegSoftware.Library.JWT.Models;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System.Diagnostics.CodeAnalysis;
 using System.Collections.Generic;
 using System.Linq;
@@ -185,7 +184,7 @@ namespace BlitzkriegSoftware.Library.JWT
             var i = text.LastIndexOf('/');
             if (i > 0)
             {
-                text = text.Substring(i + 1);
+                text = text[(i + 1)..];
             }
             return text;
         }
