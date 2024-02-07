@@ -26,12 +26,14 @@ var jwt = helper.Create(rC);
 
 // Validate
 
-var result = helper.Validate(new Models.JwtValidationRequest()
-{
-	Audiance = TestAudiance,
-	Issuer = TestIssuer,
-	Token = jwt
-});
+var result = helper.Validate(
+	new Models.JwtValidationRequest()
+	{
+		Audiance = TestAudiance,
+		Issuer = TestIssuer,
+		Token = jwt
+	}
+);
 ```
 
 Licensed under the [MIT license](LICENSE).
